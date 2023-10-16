@@ -1,7 +1,7 @@
 # Tatiane-2023-Ratiometric
 
 ## Purpose
-I need to come up with a purpose.
+Tatiane is measuring intracellular pH microenvironments using a ratiometric fluorescent marker. This repository stores code that aids in analyzing the ratiometric fluorescence output of large numbers of cells.
 
 ## Workflow
 1) Use CroppingMacro to divide 3x3 tiled images to separate images, or use TimepointMacro to split up timepoints into separate images.
