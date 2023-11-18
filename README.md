@@ -5,7 +5,7 @@ Tatiane is measuring intracellular pH microenvironments using a ratiometric fluo
 
 ## Workflow
 1) Use CroppingMacro to divide 3x3 tiled images to separate images, or use TimepointMacro to split up timepoints into separate images.
-2) Use AddC1toC3Macro to make combined 458-488 images for segmentation.
+2) Use AddC1toC3Macro to make combined "blue" (405 or 440 or 458)-488 images for segmentation.
 3) Use CellposeBatchSegmentation ipynb in cellpose environment to make segmentation ROIs.
-4) Use MeasuringMacro to measure 458, 488, and ratio intensities.
+4) Use MeasuringMacro to measure ratio of intensities following background subtraction.
 5) If necessary, use TatianeColumnCombiner to combine data columns from individual tiles.
