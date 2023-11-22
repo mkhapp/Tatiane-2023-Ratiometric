@@ -1,6 +1,6 @@
 
 //put path to files here:
-path = "C:/Users/travermk/Desktop/Tatiane Nov15/";
+path = "C:/Users/travermk/Desktop/Tatiane Nov15 Take2/";
 
 setBatchMode(true);
 run("Set Measurements...", "mean redirect=None decimal=4");
@@ -10,7 +10,7 @@ Table.create("Final Results");
 for (i = 0; i < files.length; i++) {
 	if (endsWith(files[i], ".tif")==1) {
 		open(path+files[i]);
-		roiManager("open", path+files[i]+"_C1+C3_rois.zip");
+		roiManager("open", path+files[i]+"_C1_rois.zip");
 		
 		//measure blue and yellow
 		yellow = newArray(0);
@@ -27,16 +27,19 @@ for (i = 0; i < files.length; i++) {
 		run("Clear Results");
 		
 		//background subtract blue and yellow
-		roiManager("deselect");
-		roiManager("combine");
-		run("Make Inverse");
-		Stack.setChannel(1);
-		run("Measure");
-		Stack.setChannel(3);
-		run("Measure");
-		yellowbckgnd = Table.get("Mean", 0, "Results");
-		bluebckgnd = Table.get("Mean", 1, "Results");
-		run("Clear Results");
+		//roiManager("deselect");
+		//roiManager("combine");
+		//run("Make Inverse");
+		//Stack.setChannel(1);
+		//run("Measure");
+		//Stack.setChannel(3);
+		//run("Measure");
+		//yellowbckgnd = Table.get("Mean", 0, "Results");
+		//bluebckgnd = Table.get("Mean", 1, "Results");
+		//run("Clear Results");
+		
+		yellowbckgnd = 1720;
+		bluebckgnd = 2300;
 		
 		for (j = 0; j < yellow.length; j++) {
 			yellow[j] = yellow[j] - yellowbckgnd;
@@ -53,12 +56,13 @@ for (i = 0; i < files.length; i++) {
 		}
 				
 		Table.setColumn(files[i] + " ratio", ratio, "Final Results");
+		//Table.setColumn(files[i] + " blue", blue, "Final Results");
+		//Table.setColumn(files[i] + " yellow", yellow, "Final Results");
 		
 		roiManager("reset");
 		close("*");
 	}
 }
 
-Table.save(path+"Results.csv", "Final Results");
+Table.save(path+"RatioResults.csv", "Final Results");
 print("Finished!")
-
