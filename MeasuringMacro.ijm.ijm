@@ -1,11 +1,13 @@
 
 //put path to files here:
-path = "C:/Users/travermk/Desktop/Tatiane Nov15 Take2/";
+path = "C:/Users/travermk/Desktop/Tatiane/Tifs2/";
 
 setBatchMode(true);
 run("Set Measurements...", "mean redirect=None decimal=4");
 files = getFileList(path);
-Table.create("Final Results");
+Table.create("Final Ratio Results");
+Table.create("Final Blue Results");
+Table.create("Final Yellow Results");
 
 for (i = 0; i < files.length; i++) {
 	if (endsWith(files[i], ".tif")==1) {
@@ -26,20 +28,8 @@ for (i = 0; i < files.length; i++) {
 		blue = Table.getColumn("Mean", "Results");
 		run("Clear Results");
 		
-		//background subtract blue and yellow
-		//roiManager("deselect");
-		//roiManager("combine");
-		//run("Make Inverse");
-		//Stack.setChannel(1);
-		//run("Measure");
-		//Stack.setChannel(3);
-		//run("Measure");
-		//yellowbckgnd = Table.get("Mean", 0, "Results");
-		//bluebckgnd = Table.get("Mean", 1, "Results");
-		//run("Clear Results");
-		
-		yellowbckgnd = 1720;
-		bluebckgnd = 2300;
+		yellowbckgnd = 1700;
+		bluebckgnd = 2150;
 		
 		for (j = 0; j < yellow.length; j++) {
 			yellow[j] = yellow[j] - yellowbckgnd;
@@ -55,14 +45,17 @@ for (i = 0; i < files.length; i++) {
 			ratio[j] = yellow[j] / blue[j];
 		}
 				
-		Table.setColumn(files[i] + " ratio", ratio, "Final Results");
-		//Table.setColumn(files[i] + " blue", blue, "Final Results");
-		//Table.setColumn(files[i] + " yellow", yellow, "Final Results");
+		Table.setColumn(files[i] + " ratio", ratio, "Final Ratio Results");
+		Table.setColumn(files[i] + " blue", blue, "Final Blue Results");
+		Table.setColumn(files[i] + " yellow", yellow, "Final Yellow Results");
 		
 		roiManager("reset");
 		close("*");
 	}
 }
 
-Table.save(path+"RatioResults.csv", "Final Results");
+Table.save(path+"Results/RatioResults.csv", "Final Ratio Results");
+Table.save(path+"Results/BlueResults.csv", "Final Blue Results");
+Table.save(path+"Results/YellowResults.csv", "Final Yellow Results");
+
 print("Finished!")
